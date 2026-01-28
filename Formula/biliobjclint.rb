@@ -1,8 +1,8 @@
 class Biliobjclint < Formula
   desc "Objective-C code linting tool with Xcode integration and Claude AI auto-fix"
   homepage "https://github.com/pjocer/BiliObjcLint"
-  url "https://github.com/pjocer/BiliObjcLint/archive/refs/tags/v1.0.12.tar.gz"
-  sha256 "393416cb79ccbad47dc6519d2daaf2d65a41af56e697d6d27e40726b7a4988f6"
+  url "https://github.com/pjocer/BiliObjcLint/archive/refs/tags/v1.0.13.tar.gz"
+  sha256 "d6c6872ef112018fd6bc539dba6396957463f2a52597f83f2434ea2859f21c10"
   license "MIT"
   head "https://github.com/pjocer/BiliObjcLint.git", branch: "main"
 
@@ -19,16 +19,16 @@ class Biliobjclint < Formula
     # Install Python dependencies
     system venv/"bin/pip", "install", "-r", libexec/"requirements.txt"
 
-    # Create wrapper script
+    # Create wrapper script that calls shell script
     (bin/"biliobjclint").write <<~EOS
       #!/bin/bash
-      exec "#{venv}/bin/python3" "#{libexec}/scripts/biliobjclint.py" "$@"
+      exec "#{libexec}/scripts/bin/biliobjclint.sh" "$@"
     EOS
 
-    # Create Xcode integration script wrapper
+    # Create Xcode integration script wrapper that calls shell script
     (bin/"biliobjclint-xcode").write <<~EOS
       #!/bin/bash
-      exec "#{venv}/bin/python3" "#{libexec}/scripts/xcode_integrator.py" "$@"
+      exec "#{libexec}/scripts/bin/biliobjclint-xcode.sh" "$@"
     EOS
   end
 
