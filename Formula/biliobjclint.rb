@@ -1,18 +1,17 @@
 class Biliobjclint < Formula
   desc "Objective-C code linting tool with Xcode integration and Claude AI auto-fix"
   homepage "https://github.com/pjocer/BiliObjcLint"
-  url "https://github.com/pjocer/BiliObjcLint/archive/refs/tags/v1.1.40.tar.gz"
-  sha256 "146abd0350cf0f49a7bc77b55b792e1db01e8146ae242a07984ee69f5b93d9e2"
+  url "https://github.com/pjocer/BiliObjcLint/archive/refs/tags/v1.1.41.tar.gz"
+  sha256 "56c2c37bd4cb7dcb1cdf5f466bdf797dece154c92865f992a07f5331d58b168d"
   license "MIT"
   head "https://github.com/pjocer/BiliObjcLint.git", branch: "main"
 
   depends_on "python@3.13"
 
   def install
-    # Install all files to libexec (Dir["*"] may miss some files)
+    # Install all files to libexec
+    # Note: CHANGELOG.md, README.md, LICENSE are auto-extracted to Cellar root by Homebrew
     libexec.install Dir["*"]
-    # Explicitly install CHANGELOG.md for update notifications
-    libexec.install "CHANGELOG.md" if File.exist?("CHANGELOG.md")
 
     # Create virtual environment
     venv = libexec/".venv"
