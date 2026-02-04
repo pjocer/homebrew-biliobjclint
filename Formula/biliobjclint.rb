@@ -31,6 +31,19 @@ class Biliobjclint < Formula
       #!/bin/bash
       exec "#{libexec}/scripts/bin/biliobjclint-xcode.sh" "$@"
     EOS
+
+    # Create server script wrapper that calls shell script
+    (bin/"biliobjclint-server").write <<~EOS
+      #!/bin/bash
+      exec "#{libexec}/scripts/bin/biliobjclint-server.sh" "$@"
+    EOS
+  end
+
+  service do
+    run [opt_bin/"biliobjclint-server", "run"]
+    keep_alive true
+    log_path var/"log/biliobjclint-server.log"
+    error_log_path var/"log/biliobjclint-server.log"
   end
 
   def caveats
